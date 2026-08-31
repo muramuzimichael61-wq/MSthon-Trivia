@@ -1,0 +1,10 @@
+# MSthon Trivia - Requirements
+# This project uses only Python standard library, no external dependencies needed!
+
+# Python version requirement
+python>=3.6
+
+# Optional: For future enhancements
+# pygame>=2.0.0  # For adding sound effects
+# PyQt5>=5.15.0  # For GUI version
+# sqlite3  # Built-in, for database features
