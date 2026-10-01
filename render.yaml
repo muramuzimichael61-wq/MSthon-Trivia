@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: myk-quiz
+    runtime: python
+    plan: starter
+    buildCommand: python -m py_compile main.py
+    startCommand: python main.py
+    healthCheckPath: /api/meta
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: MYK_DATA_DIR
+        value: /var/data
+      - key: MYK_ADMIN_PASSWORD
+        generateValue: true
+    disk:
+      name: myk-questions
+      mountPath: /var/data
+      sizeGB: 1

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101018">
+  <meta name="description" content="Myk is a fast, fun programming quiz. Think sharp, beat the clock, and level up your code knowledge.">
+  <title>Myk — The developer quiz</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Myk home">
+        <span class="brand-mark">m<span>.</span></span>
+        <span class="brand-name">myk<span>quiz</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="online-indicator"><i></i> LIVE QUESTION BANK</span>
+        <button class="button button-quiet install-button" id="install-button" hidden>Install app <span>↗</span></button>
+        <button class="button button-host" id="room-open"><span>✳</span> Host / Join</button>
+        <button class="button button-quiet admin-open" id="admin-open">Admin <span>↗</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> YOUR DAILY CODE BREAK</div>
+          <h1>Think fast.<br><span>Code smarter.</span></h1>
+          <p>Quick-fire questions for curious minds. Pick a topic, trust your instincts, and see how far your knowledge takes you.</p>
+          <div class="hero-meta">
+            <span><b class="meta-icon">◷</b> 15 seconds per question</span>
+            <span><b class="meta-icon purple">✳</b> Fresh questions, always</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="art-spark spark-a">✳</div>
+          <div class="art-spark spark-b">✦</div>
+          <div class="code-card">
+            <div class="code-dots"><i></i><i></i><i></i><span>your_next_level.js</span></div>
+            <div class="code-lines">
+              <div><em>01</em><span class="syntax-purple">const</span> <span class="syntax-white">curiosity</span> = <span class="syntax-orange">true</span>;</div>
+              <div><em>02</em></div>
+              <div><em>03</em><span class="syntax-purple">while</span> (curiosity) {</div>
+              <div><em>04</em>&nbsp;&nbsp; <span class="syntax-yellow">learn</span>(<span class="syntax-green">somethingNew</span>);</div>
+              <div><em>05</em>}</div>
+              <div class="code-cursor"><em>06</em><span></span></div>
+            </div>
+            <div class="code-sticker">LEVEL UP <span>↗</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="game-layout" aria-label="Quiz game">
+        <div class="quiz-column">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> THE PLAYGROUND</div>
+              <h2>Ready when <span>you are.</span></h2>
+            </div>
+            <div class="round-tag"><span>ROUND</span><b id="round-label">— / 10</b></div>
+          </div>
+          <div class="quiz-card" id="quiz-card">
+            <div class="quiz-top">
+              <div class="question-counter"><span class="counter-dot"></span><span id="question-count">LOADING QUIZ</span></div>
+              <div class="category-picker">
+                <label class="visually-hidden" for="category-select">Choose quiz category</label>
+                <select id="category-select" aria-label="Quiz category">
+                  <option value="All">All topics</option>
+                </select>
+              </div>
+            </div>
+            <div class="progress-track" aria-label="Quiz progress"><span id="progress-bar"></span></div>
+
+            <div class="quiz-content" id="quiz-content">
+              <div class="loading-state"><span class="loader"></span><p>Finding your next challenge…</p></div>
+            </div>
+          </div>
+          <div class="under-card">
+            <span><span class="key-hint">ENTER</span> to start <span class="hint-divider">·</span> <span class="key-hint">1–4</span> to answer</span>
+            <span class="made-for">MADE FOR THE CURIOUS <span>✳</span></span>
+          </div>
+        </div>
+
+        <aside class="side-column">
+          <div class="side-card streak-card">
+            <div class="side-card-top"><span class="side-icon fire">✳</span><span class="live-pill"><i></i> YOUR SESSION</span></div>
+            <div class="streak-number" id="score-display">0<span> pts</span></div>
+            <div class="side-title">Looking sharp.</div>
+            <p>Get one right, keep the momentum going.</p>
+            <div class="streak-divider"></div>
+            <div class="streak-bottom"><span>BEST STREAK</span><b id="streak-display">0 <small>in a row</small></b></div>
+          </div>
+          <div class="side-card topics-card">
+            <div class="topics-heading"><div class="side-icon topic-icon">⌘</div><div><div class="side-title">Pick your brain</div><p>Choose a playground.</p></div></div>
+            <div class="topic-list" id="topic-list"><span class="topic-chip selected" data-topic="All">✳ <span>Everything</span></span></div>
+          </div>
+          <div class="side-note"><span class="note-spark">✦</span><p><b>Little tip</b><br>Every question's a chance to learn something new. No pressure, just progress.</p></div>
+        </aside>
+      </section>
+    </main>
+    <footer><a class="footer-brand" href="/">myk<span>quiz</span></a><span>GOOD QUESTIONS. BETTER CODERS.</span><button class="footer-admin" id="footer-admin">ADMIN ACCESS</button></footer>
+  </div>
+
+  <dialog class="admin-dialog" id="admin-dialog" aria-labelledby="admin-title">
+    <div class="dialog-head">
+      <div><div class="eyebrow"><span class="eyebrow-line"></span> QUESTION STUDIO</div><h2 id="admin-title">Admin <span>access.</span></h2></div>
+      <button class="close-button" id="admin-close" aria-label="Close admin">×</button>
+    </div>
+    <div id="admin-login-panel">
+      <p class="dialog-intro">Sign in to keep Myk fresh with new programming questions.</p>
+      <form id="admin-login-form">
+        <label for="admin-password">Admin password</label>
+        <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+        <button class="button button-primary form-submit" type="submit">Sign in <span>→</span></button>
+      </form>
+    </div>
+    <div id="admin-editor-panel" hidden>
+      <p class="dialog-intro">Add to the live question bank. New questions are available in the next round.</p>
+      <form id="question-form">
+        <label for="new-question">Question</label>
+        <textarea id="new-question" name="question" maxlength="500" rows="2" required></textarea>
+        <div class="form-grid">
+          <label>Answer A<input name="option0" maxlength="200" required></label>
+          <label>Answer B<input name="option1" maxlength="200" required></label>
+          <label>Answer C<input name="option2" maxlength="200" required></label>
+          <label>Answer D<input name="option3" maxlength="200" required></label>
+        </div>
+        <div class="form-grid form-grid-bottom">
+          <label for="correct-answer">Correct answer
+            <select id="correct-answer" name="correct_answer">
+              <option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option>
+            </select>
+          </label>
+          <label for="new-category">Topic<input id="new-category" name="category" maxlength="40" placeholder="e.g. Python" required></label>
+          <label for="new-difficulty">Difficulty
+            <select id="new-difficulty" name="difficulty"><option>Easy</option><option>Medium</option><option>Hard</option></select>
+          </label>
+        </div>
+        <label for="new-explanation">Why? <span class="label-optional">OPTIONAL</span></label>
+        <input id="new-explanation" name="explanation" maxlength="500" placeholder="A short explanation shown after an answer">
+        <button class="button button-primary form-submit" type="submit">Add to question bank <span>→</span></button>
+      </form>
+    </div>
+    <p class="form-message" id="admin-message" role="status"></p>
+  </dialog>
+  <dialog class="admin-dialog room-dialog" id="room-dialog" aria-labelledby="room-dialog-title">
+    <div class="dialog-head">
+      <div><div class="eyebrow"><span class="eyebrow-line"></span> PLAY TOGETHER</div><h2 id="room-dialog-title">Quiz <span>room.</span></h2></div>
+      <button class="close-button" id="room-close" aria-label="Close quiz room">×</button>
+    </div>
+    <div class="room-entry" id="room-entry">
+      <p class="dialog-intro">Host a quiz for your crowd, or join one with the six-character code from your host.</p>
+      <div class="room-tabs"><button class="room-tab selected" data-panel="host-panel">Host a quiz</button><button class="room-tab" data-panel="join-panel">Join a quiz</button></div>
+      <form id="room-host-form" class="room-form active" data-room-panel="host-panel">
+        <label for="room-category">Question topic
+          <select id="room-category" name="category"><option value="All">All topics</option></select>
+        </label>
+        <label for="room-count">Questions per round
+          <select id="room-count" name="question_count"><option>5</option><option selected>10</option><option>15</option><option>20</option><option>30</option></select>
+        </label>
+        <p class="room-hint">Add your own questions in <button type="button" class="inline-link" id="open-question-studio">Admin → Question Studio</button>. Your room uses the saved question bank.</p>
+        <button class="button button-primary form-submit" type="submit">Create host room <span>→</span></button>
+      </form>
+      <form id="room-join-form" class="room-form" data-room-panel="join-panel" hidden>
+        <label for="join-code">Six-character room code<input id="join-code" name="code" maxlength="6" autocomplete="off" autocapitalize="characters" placeholder="e.g. 8KP4RT" required></label>
+        <label for="join-name">Your player name<input id="join-name" name="name" maxlength="24" autocomplete="nickname" placeholder="How should the host see you?" required></label>
+        <button class="button button-primary form-submit" type="submit">Join the room <span>→</span></button>
+      </form>
+      <p class="form-message" id="room-entry-message" role="status"></p>
+    </div>
+    <section class="room-session" id="room-session" hidden>
+      <div class="room-session-header" id="room-session-header"></div>
+      <div class="room-session-content" id="room-session-content"></div>
+      <p class="form-message" id="room-session-message" role="status"></p>
+      <button class="secondary-button room-leave" id="room-leave">Leave this room</button>
+    </section>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
