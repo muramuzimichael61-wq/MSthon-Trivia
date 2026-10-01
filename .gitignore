@@ -136,3 +136,4 @@ Thumbs.db
 # Game save files (if implemented)
 *.save
 game_data/
+data/questions.json
